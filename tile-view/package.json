@@ -16,6 +16,7 @@
   },
   "lint-staged": {
     "*.{js,ts,vue}": [
+      "echo CHECK CHECK CHECK",
       "eslint --fix",
       "git add"
     ]
