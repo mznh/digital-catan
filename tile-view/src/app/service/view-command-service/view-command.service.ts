@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import * as p5 from 'p5';
 
 import { BaseObject, TestUnitObject } from '../../model/drawable-object' 
+import { CommandData, CommandInfo, COMMAND_TYPE} from '../../model/command' 
 
 //import { ViewCommand } from '../../model/status'
 
@@ -17,15 +18,22 @@ export class ViewCommandService {
   //TODO anyなくす
   private viewCommandStream :any;
   private p5ref:any;
-  public drawableObjectList: BaseObject[] = [];
+  
+  private commandMatchList:CommandInfo[];
+  private drawableObjectList: BaseObject[] = [];
 
   constructor() {
     //要エラー処理
     this.viewCommandStream = webSocket(this.viewCommandStreamUrl);
 		console.log("wake up");
+    console.log(this.drawableObjectList);
+    this.commandMatchList = [
+      new CommandInfo( COMMAND_TYPE.PUT_ROAD, this.execPutRoad),
+      new CommandInfo( COMMAND_TYPE.REMOVE_ROAD, this.execRemoveRoad) 
+    ];
   }  
 
-  public setP5instance(p:p5){
+  public setP5Instance(p:p5){
     this.p5ref = p;
   }
   
@@ -33,5 +41,38 @@ export class ViewCommandService {
   public getCommandStream(){
     return this.viewCommandStream;
 
+  }
+  public startCommandExecute(){
+    this.getCommandStream().subscribe(
+      //command execute 
+      (command: CommandData) =>{
+        console.log(command);
+        this.commandMatchList.forEach(
+          (cmdInfo,idx) => {
+            if(command.type === cmdInfo.type){
+              cmdInfo.func.call(this,command);
+            }
+          }
+        );
+      }
+    );
+  }
+  //draw canvas
+  public draw(){
+    this.p5ref.background(0);
+    this.drawableObjectList.forEach((elm,idx) =>{
+      elm.draw()
+    });
+  }
+
+  // function for command 
+
+  private execPutRoad(cmd:CommandData){
+    console.log(cmd.type);
+    this.drawableObjectList.push(new TestUnitObject(this.p5ref, 500*Math.random(), 500*Math.random() ));
+  }
+  private execRemoveRoad(cmd:CommandData){
+    console.log(cmd.type);
+    this.drawableObjectList = [];
   }
 }

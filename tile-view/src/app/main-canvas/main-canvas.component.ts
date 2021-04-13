@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { ViewCommandService } from '../service/view-command-service/view-command.service'
 import { BaseObject, TestUnitObject } from '../model/drawable-object' 
+import { CommandData, COMMAND_TYPE} from '../model/command' 
 import * as p5 from 'p5';
 
 @Component({
@@ -14,27 +15,15 @@ export class MainCanvasComponent implements OnInit {
   public sketch :p5;
   private commandStream:WebSocket|null = null;
 
-  //TODO 
-  //描画順序なども考慮できるように、なんらかのサービスに切り離す
-  //一旦の抽象化
-  //commandStreamServiceにまとめるのもあり
-  public drawableObjectList: BaseObject[] = [];
-
   private p5f = (p:p5) =>{
     p.setup = () =>{
       // 画面全体に表示する場合
       //p.createCanvas(p.windowWidth, p.windowHeight);
       p.createCanvas(900,700);
     }
-    //ここはマジでデカくしたくない
     p.draw = () => {
-      //描画対象のリストをなめてdrawを呼び出すだけ
-      //背景
       p.background(0);
-      // drawableObject
-      this.drawableObjectList.forEach((elm,idx) =>{
-        elm.draw()
-      });
+      this.viewCommandService.draw()
     }
   }
 
@@ -43,27 +32,33 @@ export class MainCanvasComponent implements OnInit {
     const canvasElm = document.getElementById('mainCanvas') || undefined;
     //p5jsインスタンスを作成,実態と要素を紐付け
     this.sketch = new p5(this.p5f,canvasElm) ;
+    // viewCommandServiceにp5インスタンスを紐付け
+    this.viewCommandService.setP5Instance(this.sketch);
+
     //subscribe
-    this.subscribeCommandStream();
-    
+    this.viewCommandService.startCommandExecute();
   }
 
   ngOnInit(): void {
   }
 
-
-  private subscribeCommandStream(){
-    this.viewCommandService.getCommandStream().subscribe(
-      //command 
-      (command:any) =>{
-        console.log(command);
-        this.drawableObjectList.push(new TestUnitObject(this.sketch, 500*Math.random(), 500*Math.random() ));
-      }
-    );
-  }
-
   //for stream test
   public drawCircle(){
-    this.viewCommandService.getCommandStream().next("test send msg");
+    const tmpCommandData ={
+      type: COMMAND_TYPE.PUT_ROAD,
+      target: "test",
+      value: 100,
+      message: "this is test message"
+    };
+    this.viewCommandService.getCommandStream().next(tmpCommandData);
+  }
+  public flashCircle(){
+    const tmpCommandData ={
+      type: COMMAND_TYPE.REMOVE_ROAD,
+      target: "remove",
+      value: 100,
+      message: "this is remove test message"
+    };
+    this.viewCommandService.getCommandStream().next(tmpCommandData);
   }
 }
