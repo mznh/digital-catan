@@ -25,8 +25,11 @@ EM::WebSocket.start({:host => "0.0.0.0", :port => 8888}) do |ws_conn|
   end
 
   ws_conn.onmessage do |message|
-    pp message
-    connnections.each{|conn| conn.send(message) }
+    pp JSON.parse(message)
+
+    connnections.each{
+      |conn| conn.send(message)
+    }
   end
 end
 
