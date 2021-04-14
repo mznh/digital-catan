@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { ViewCommandService } from '../service/view-command-service/view-command.service'
+import * as p5 from 'p5';
+
+import { ViewCommandService } from '../service/view-command/view-command.service'
+import { GraphicService } from '../service/graphic/graphic.service'
+
 import { BaseObject, TestUnitObject } from '../model/drawable-object' 
 import { CommandData, COMMAND_TYPE} from '../model/command' 
-import * as p5 from 'p5';
 
 @Component({
   selector: 'app-main-canvas',
@@ -16,24 +19,32 @@ export class MainCanvasComponent implements OnInit {
   private commandStream:WebSocket|null = null;
 
   private p5f = (p:p5) =>{
+    p.preload = ()=>{
+      // load picture
+      this.graphicService.loadGraphic();
+    }
     p.setup = () =>{
       // 画面全体に表示する場合
       //p.createCanvas(p.windowWidth, p.windowHeight);
-      p.createCanvas(900,700);
+      p.createCanvas(600,600);
     }
     p.draw = () => {
-      p.background(0);
       this.viewCommandService.draw()
     }
   }
 
-  constructor( private viewCommandService: ViewCommandService) {
+  constructor( 
+    private viewCommandService: ViewCommandService,
+    private graphicService: GraphicService
+  ) {
     //p5canvasを取得
     const canvasElm = document.getElementById('mainCanvas') || undefined;
     //p5jsインスタンスを作成,実態と要素を紐付け
     this.sketch = new p5(this.p5f,canvasElm) ;
-    // viewCommandServiceにp5インスタンスを紐付け
+
+    // Serviceにp5インスタンスを紐付け
     this.viewCommandService.setP5Instance(this.sketch);
+    this.graphicService.setP5Instance(this.sketch);
 
     //subscribe
     this.viewCommandService.startCommandExecute();
@@ -43,15 +54,6 @@ export class MainCanvasComponent implements OnInit {
   }
 
   //for stream test
-  public drawCircle(){
-    const tmpCommandData ={
-      type: COMMAND_TYPE.PUT_ROAD,
-      target: "test",
-      value: 100,
-      message: "this is test message"
-    };
-    this.viewCommandService.getCommandStream().next(tmpCommandData);
-  }
   public flashCircle(){
     const tmpCommandData ={
       type: COMMAND_TYPE.REMOVE_ROAD,
@@ -59,6 +61,16 @@ export class MainCanvasComponent implements OnInit {
       value: 100,
       message: "this is remove test message"
     };
-    this.viewCommandService.getCommandStream().next(tmpCommandData);
+    this.viewCommandService.sendCommandData(tmpCommandData);
+  }
+
+  public putRoadKoma(position:number){
+    const tmpCommandData ={
+      type: COMMAND_TYPE.PUT_ROAD,
+      target: "test",
+      value: position,
+      message: "this is test message"
+    };
+    this.viewCommandService.sendCommandData(tmpCommandData);
   }
 }
