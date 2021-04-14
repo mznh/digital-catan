@@ -6,10 +6,9 @@ import { HttpClient } from '@angular/common/http';
 import * as p5 from 'p5';
 
 import { GraphicService } from '../graphic/graphic.service'
-import { RoadKoma, BaseObject, TestUnitObject } from '../../model/drawable-object' 
+import { RoadKoma, DrawableObject } from '../../model/drawable-object' 
 import { CommandData, CommandInfo, COMMAND_TYPE} from '../../model/command' 
 
-//import { ViewCommand } from '../../model/status'
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +20,7 @@ export class ViewCommandService {
   private p5ref:p5;
   
   private commandMatchList:CommandInfo[];
-  private drawableObjectList: BaseObject[] = [];
+  private drawableObjectList: DrawableObject[] = [];
 
   constructor( private graphicService: GraphicService) {
 		console.log("wake up");
@@ -60,7 +59,7 @@ export class ViewCommandService {
 
 
   //subscribeを開始
-  public startCommandExecute(){
+  public startExecute(){
     this.getCommandStream().subscribe(
       //command execute 
       (command: CommandData) =>{
@@ -78,7 +77,6 @@ export class ViewCommandService {
 
 
   // function for command 
-
   private execPutRoad(cmd:CommandData){
     console.log(cmd.type);
     this.drawableObjectList.push(

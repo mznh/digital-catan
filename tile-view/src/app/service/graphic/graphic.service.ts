@@ -18,7 +18,7 @@ export class GraphicService extends GraphicBook{
     this.p5ref = p;
   }
 
-  public loadGraphic(){
+  public loadGraphics(){
     console.log("graphc load ")
     this.ROAD_KOMA = this.p5ref.loadImage( GRAPHIC_PATH.ROAD_KOMA );
   }

@@ -1,9 +1,7 @@
-import { BaseObject } from './drawable-object'
-
-
-
-//ハードウェア側の観測するべき状態と一対一対応
-//ゲームルールとしてリーガル/イリーガルかとは別
+// 以下と一対一対応
+// ハードウェア側の観測するべき状態
+// 管制モジュールから通達される状態
+// ゲームルールとしてリーガル/イリーガルかとは別
 export const COMMAND_TYPE = {
   PUT_ROAD: 'put road koma',
   REMOVE_ROAD: 'remove road koma',
@@ -13,8 +11,8 @@ type COMMAND_TYPE = typeof COMMAND_TYPE[keyof typeof COMMAND_TYPE];
 
 
 
+// stream からながれてくる
 //コマンドから実態を抜いたもの
-//stream からながれてくる
 export interface CommandData {
   type: COMMAND_TYPE;
   target: string;

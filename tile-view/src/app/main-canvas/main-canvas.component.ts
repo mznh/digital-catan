@@ -5,7 +5,7 @@ import * as p5 from 'p5';
 import { ViewCommandService } from '../service/view-command/view-command.service'
 import { GraphicService } from '../service/graphic/graphic.service'
 
-import { BaseObject, TestUnitObject } from '../model/drawable-object' 
+// for test
 import { CommandData, COMMAND_TYPE} from '../model/command' 
 
 @Component({
@@ -21,7 +21,7 @@ export class MainCanvasComponent implements OnInit {
   private p5f = (p:p5) =>{
     p.preload = ()=>{
       // load picture
-      this.graphicService.loadGraphic();
+      this.graphicService.loadGraphics();
     }
     p.setup = () =>{
       // 画面全体に表示する場合
@@ -47,22 +47,13 @@ export class MainCanvasComponent implements OnInit {
     this.graphicService.setP5Instance(this.sketch);
 
     //subscribe
-    this.viewCommandService.startCommandExecute();
+    this.viewCommandService.startExecute();
   }
 
   ngOnInit(): void {
   }
 
   //for stream test
-  public flashCircle(){
-    const tmpCommandData ={
-      type: COMMAND_TYPE.REMOVE_ROAD,
-      target: "remove",
-      value: 100,
-      message: "this is remove test message"
-    };
-    this.viewCommandService.sendCommandData(tmpCommandData);
-  }
 
   public putRoadKoma(position:number){
     const tmpCommandData ={
@@ -70,6 +61,16 @@ export class MainCanvasComponent implements OnInit {
       target: "test",
       value: position,
       message: "this is test message"
+    };
+    this.viewCommandService.sendCommandData(tmpCommandData);
+  }
+
+  public flashCanvas(){
+    const tmpCommandData ={
+      type: COMMAND_TYPE.REMOVE_ROAD,
+      target: "remove",
+      value: 100,
+      message: "this is remove test message"
     };
     this.viewCommandService.sendCommandData(tmpCommandData);
   }

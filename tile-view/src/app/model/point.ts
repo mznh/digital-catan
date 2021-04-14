@@ -1,5 +1,3 @@
-
-
 //position and rotate
 export class Point{
   public x:number;

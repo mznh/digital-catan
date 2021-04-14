@@ -2,7 +2,7 @@ import * as p5 from 'p5';
 import { Point } from './point';
 import { GRAPHIC_POSITION } from './graphics';
 
-export class BaseObject {
+export class DrawableObject {
   public p5ref:any
   constructor(p:p5){
     this.p5ref = p;
@@ -11,7 +11,7 @@ export class BaseObject {
 
 }
 
-export class TestUnitObject extends BaseObject {
+export class TestUnitObject extends DrawableObject {
   public pos:Point;
   constructor(p:p5, point:Point ){
     super(p);
@@ -23,7 +23,7 @@ export class TestUnitObject extends BaseObject {
 };
 
 
-export class RoadKoma extends BaseObject {
+export class RoadKoma extends DrawableObject {
   public position:number
   public img:p5.Image;
   constructor(p:p5, pos:number, img:p5.Image){
@@ -52,6 +52,4 @@ function drawRotateImage(p:p5, img:p5.Image, point:Point){
   p.image(img,0,0);
   p.rotate(-1*point.r);
   p.translate(-1*point.x,-1*point.y);
-  //p.translate(0,0);
-
 }
