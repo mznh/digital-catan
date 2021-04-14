@@ -1,4 +1,4 @@
-# hw-observer
+# HardwareObserver
 
 init
 
@@ -15,6 +15,13 @@ update requirements.txt
 $ pip3 install hoge
 $ pip3 list
 $ pip3 freeze > requirements.txt
+```
+
+execute 
+```
+$ . bin/activate
+$ ./src/main.py
+$ deactivate 
 ```
 
 
