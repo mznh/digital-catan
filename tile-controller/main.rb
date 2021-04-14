@@ -6,16 +6,6 @@ require 'json'
 require 'pp'
 require 'thread'
 
-#class TileController < Sinatra::Base
-#  configure :production, :development do
-#  end
-#
-#	get '/' do
-#    return { :x => 7, :y => 5}.to_json
-#	end
-#end
-
-
 connnections = []
 
 EM::WebSocket.start({:host => "0.0.0.0", :port => 8888}) do |ws_conn|
@@ -31,14 +21,9 @@ EM::WebSocket.start({:host => "0.0.0.0", :port => 8888}) do |ws_conn|
       |conn| conn.send(message)
     }
   end
-end
 
-loop do
-  connnections.each{|conn| conn.send("test") }
-  sleep(2)
-  p "send msg"
+  ws_conn.onclose do
+    p "connnections close"
+  end
 end
-
-# for development
-#TileController.run! :host => 'localhost'
 
