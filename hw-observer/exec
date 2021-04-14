@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# activate virtualenv
+. bin/activate
+
+# execute 
+./main.py
+
+# deactivate virtualenv
+deactivate
