@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as p5 from 'p5';
 
-import { GraphicBook, GRAPHIC_PATH } from '../../model/graphics'
+import { GraphicBook, Graphic, GRAPHIC_DATA } from '../../model/graphics'
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +20,16 @@ export class GraphicService extends GraphicBook{
 
   public loadGraphics(){
     console.log("graphc load ")
-    this.ROAD_KOMA = this.p5ref.loadImage( GRAPHIC_PATH.ROAD_KOMA );
+    this.ROAD_KOMA = this.loadGraphic( GRAPHIC_DATA.ROAD_KOMA );
+    this.TEST_TREASURE = this.loadGraphic( GRAPHIC_DATA.TEST_TREASURE );
+  }
+  // 各graphicに画像を読み込ませる
+  public loadGraphic(graphic:Graphic){
+    if(graphic.isAnime){
+      graphic.image = this.p5ref.loadImage( graphic.filePath );
+    }else{
+      graphic.image = this.p5ref.loadImage( graphic.filePath );
+    }
+    return graphic;
   }
 }

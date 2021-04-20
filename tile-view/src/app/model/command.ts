@@ -5,11 +5,10 @@
 export const COMMAND_TYPE = {
   PUT_ROAD: 'put road koma',
   REMOVE_ROAD: 'remove road koma',
+  TEST_TREASURE: 'generate test treasure',
 
 } as const;
 type COMMAND_TYPE = typeof COMMAND_TYPE[keyof typeof COMMAND_TYPE];
-
-
 
 // stream からながれてくる
 //コマンドから実態を抜いたもの

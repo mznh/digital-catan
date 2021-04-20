@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import * as p5 from 'p5';
 
 import { GraphicService } from '../graphic/graphic.service'
-import { RoadKoma, DrawableObject } from '../../model/drawable-object' 
+import { TestTreasure, RoadKoma, DrawableObject, DrawableAnimationObject } from '../../model/drawable-object' 
 import { CommandData, CommandInfo, COMMAND_TYPE} from '../../model/command' 
 
 
@@ -30,7 +30,8 @@ export class ViewCommandService {
     // コマンドと実態のペア
     this.commandMatchList = [
       new CommandInfo( COMMAND_TYPE.PUT_ROAD, this.execPutRoad),
-      new CommandInfo( COMMAND_TYPE.REMOVE_ROAD, this.execRemoveRoad) 
+      new CommandInfo( COMMAND_TYPE.REMOVE_ROAD, this.execRemoveRoad), 
+      new CommandInfo( COMMAND_TYPE.TEST_TREASURE, this.execGenerateTreasure) 
     ];
   }  
 
@@ -44,6 +45,12 @@ export class ViewCommandService {
     this.drawableObjectList.forEach((elm,idx) =>{
       elm.draw()
     });
+    // delete finished animation 
+    this.drawableObjectList = this.drawableObjectList.filter((elm) =>{
+      // アニメーションオブジェクトかつアニメーションが終わったものを除外
+      return !( elm instanceof DrawableAnimationObject && elm.animationStatus.isFinished())
+    })
+
   }
 
   // command stream を返す
@@ -86,5 +93,10 @@ export class ViewCommandService {
   private execRemoveRoad(cmd:CommandData){
     console.log(cmd.type);
     this.drawableObjectList = [];
+  }
+  private execGenerateTreasure(cmd:CommandData){
+    this.drawableObjectList.push(
+      new TestTreasure(this.p5ref, cmd.value, this.graphicService.TEST_TREASURE)
+    );
   }
 }

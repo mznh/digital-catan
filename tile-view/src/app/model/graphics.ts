@@ -5,20 +5,65 @@ import { Point } from './point'
 //p5.PI はインスタンスに付随する定数っぽいので同じ値をここで定義
 const M_PI = 3.14159265358979323846;
 
+// アニメーションのコマ割りデータ
+// AnimationInfo(path,true,numOfFrames, numOfWidth, numOfHeight, sizeOfWidth, sizeOfHeight)
+// AnimationInfo(path,true, 5, 4, 2, 100,100)
+// [0, 1, 2, 3]
+// [4, /, /, /]
+export class AnimationInfo{
+  public numOfFrames:number; 
+  public numOfWidth:number; 
+  public numOfHeight:number;
+  public sizeOfWidth:number;
+  public sizeOfHeight:number;
+  public framePerImage:number;
+  constructor(numOfFrames:number,framePerImage:number,
+    numOfWidth:number, numOfHeight:number, sizeOfWidth:number, sizeOfHeight:number){
+    this.numOfFrames = numOfFrames; 
+    this.framePerImage = framePerImage;
+    this.numOfWidth = numOfWidth; 
+    this.numOfHeight = numOfHeight;
+    this.sizeOfWidth = sizeOfWidth;
+    this.sizeOfHeight = sizeOfHeight;
+  }
+}
+
+// 画像素材一つの情報
+// アニメーション素材はそれで一つと考える
+//TODO isAnimeいらなさそう
+export class Graphic{
+  public filePath:string;
+  public image:p5.Image;
+  public isAnime: boolean;
+  public animationInfo: AnimationInfo;
+
+  constructor(filePath:string, isAnime?:boolean, animationInfo?:AnimationInfo){
+    this.filePath = filePath;
+    if(isAnime && animationInfo){
+      this.isAnime = true;
+      this.animationInfo = animationInfo;
+    }else{
+      this.isAnime = false;
+    }
+  }
+}
 
 // 画像のロード先
 // GraphicService に継承される
 export class GraphicBook{
-  public ROAD_KOMA: p5.Image;
+  public ROAD_KOMA: Graphic;
+  public TEST_TREASURE: Graphic;
 };
 
 // 画像のロード元
 // GraphicBookと一対一対応
-export const GRAPHIC_PATH ={
-  ROAD_KOMA: "assets/pic/test_road.png"
+export const GRAPHIC_DATA ={
+  ROAD_KOMA: new Graphic("assets/pic/test_road.png"),
+  TEST_TREASURE: new Graphic("assets/pic/test_treasure.png",true, new AnimationInfo(10,10,5,2,192,192)),
 };
 
-//TODO
+/// 以下細々した定数
+//TODO 別に移す
 //ここの数値は完全に仮ぎめ
 //後々必ず精査すること
 export const GRAPHIC_POSITION ={

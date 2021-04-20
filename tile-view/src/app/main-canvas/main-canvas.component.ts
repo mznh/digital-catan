@@ -55,6 +55,16 @@ export class MainCanvasComponent implements OnInit {
 
   //for stream test
 
+  public putTreasure(){
+    const tmpCommandData ={
+      type: COMMAND_TYPE.TEST_TREASURE,
+      target: "test",
+      value: 0,
+      message: "this is test message"
+    };
+    this.viewCommandService.sendCommandData(tmpCommandData);
+  }
+
   public putRoadKoma(position:number){
     const tmpCommandData ={
       type: COMMAND_TYPE.PUT_ROAD,
