@@ -10,3 +10,5 @@ export class Point{
     this.r = r;
   }
 }
+
+

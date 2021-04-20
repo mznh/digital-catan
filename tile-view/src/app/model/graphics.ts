@@ -1,15 +1,21 @@
-//drawable object で使用する定数をまとめたもの
 import * as p5 from 'p5';
 import { Point } from './point'
 
 //p5.PI はインスタンスに付随する定数っぽいので同じ値をここで定義
 const M_PI = 3.14159265358979323846;
 
+export function toRadian(degree:number){
+  return degree/180*M_PI;
+}
+
+
+//TODO 変数名ごちゃっとしすぎか?
 // アニメーションのコマ割りデータ
-// AnimationInfo(path,true,numOfFrames, numOfWidth, numOfHeight, sizeOfWidth, sizeOfHeight)
-// AnimationInfo(path,true, 5, 4, 2, 100,100)
+// AnimationInfo(numOfFrames, framePerImage, numOfWidth, numOfHeight, sizeOfWidth, sizeOfHeight)
+// AnimationInfo(5, 10, 4, 2, 100,100)
 // [0, 1, 2, 3]
 // [4, /, /, /]
+// 10 drawごとに1コマ進む
 export class AnimationInfo{
   public numOfFrames:number; 
   public numOfWidth:number; 
@@ -37,9 +43,9 @@ export class Graphic{
   public isAnime: boolean;
   public animationInfo: AnimationInfo;
 
-  constructor(filePath:string, isAnime?:boolean, animationInfo?:AnimationInfo){
+  constructor(filePath:string, animationInfo?:AnimationInfo){
     this.filePath = filePath;
-    if(isAnime && animationInfo){
+    if(animationInfo){
       this.isAnime = true;
       this.animationInfo = animationInfo;
     }else{
@@ -59,7 +65,7 @@ export class GraphicBook{
 // GraphicBookと一対一対応
 export const GRAPHIC_DATA ={
   ROAD_KOMA: new Graphic("assets/pic/test_road.png"),
-  TEST_TREASURE: new Graphic("assets/pic/test_treasure.png",true, new AnimationInfo(10,10,5,2,192,192)),
+  TEST_TREASURE: new Graphic("assets/pic/test_treasure.png", new AnimationInfo(10,10,5,2,192,192)),
 };
 
 /// 以下細々した定数

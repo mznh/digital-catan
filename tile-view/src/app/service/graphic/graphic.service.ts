@@ -25,11 +25,7 @@ export class GraphicService extends GraphicBook{
   }
   // 各graphicに画像を読み込ませる
   public loadGraphic(graphic:Graphic){
-    if(graphic.isAnime){
-      graphic.image = this.p5ref.loadImage( graphic.filePath );
-    }else{
-      graphic.image = this.p5ref.loadImage( graphic.filePath );
-    }
+    graphic.image = this.p5ref.loadImage( graphic.filePath );
     return graphic;
   }
 }
