@@ -3,6 +3,7 @@ import { Observable, of, Subject } from "rxjs";
 import { webSocket } from "rxjs/webSocket";
 import { mergeMap, map, catchError } from "rxjs/operators";
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 import * as p5 from 'p5';
 
 import { GraphicService } from '../graphic/graphic.service'
@@ -14,7 +15,7 @@ import { CommandData, CommandInfo, COMMAND_TYPE} from '../../model/command'
   providedIn: 'root'
 })
 export class ViewCommandService {
-  private viewCommandStreamUrl = "ws://localhost:8888";
+  private viewCommandStreamUrl = environment.wsUrl;
   //TODO anyなくす
   private viewCommandStream :any;
   private p5ref:p5;
