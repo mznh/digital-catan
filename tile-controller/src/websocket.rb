@@ -20,15 +20,17 @@ class TileWebsocket
   def run
     # start echo back websocket server
     return Thread.new do
+      port = Environments.instance.ws_port
       connnections = []
       p "start websocket server"
       ## ここも Faye に合わせるかも
-      EM::WebSocket.start({:host => "0.0.0.0", :port => 8888}) do |ws_conn|
+      EM::WebSocket.start({:host => "0.0.0.0", :port => port}) do |ws_conn|
         ws_conn.onopen do
           connnections << ws_conn
           p "get connection"
         end
 
+      ## 現状はエコーバックするだけ
         ws_conn.onmessage do |message|
           pp JSON.parse(message)
           p connnections.length
