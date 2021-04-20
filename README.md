@@ -1,4 +1,4 @@
-# digital-catan
+# DigitalCatan
 
 
 ## issue name 
