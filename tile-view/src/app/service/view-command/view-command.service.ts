@@ -29,9 +29,9 @@ export class ViewCommandService {
 
     // コマンドと実態のペア
     this.commandMatchList = [
-      new CommandInfo( COMMAND_TYPE.PUT_ROAD, this.execPutRoad),
-      new CommandInfo( COMMAND_TYPE.REMOVE_ROAD, this.execRemoveRoad), 
-      new CommandInfo( COMMAND_TYPE.TEST_TREASURE, this.execGenerateTreasure) 
+      new CommandInfo( COMMAND_TYPE.PUT_ROAD, this.execPutRoad ),
+      new CommandInfo( COMMAND_TYPE.REMOVE_ROAD, this.execRemoveRoad ), 
+      new CommandInfo( COMMAND_TYPE.TEST_TREASURE, this.execGenerateTreasure ) 
     ];
   }  
 
@@ -85,13 +85,11 @@ export class ViewCommandService {
 
   // function for command 
   private execPutRoad(cmd:CommandData){
-    console.log(cmd.type);
     this.drawableObjectList.push(
       new RoadKoma(this.p5ref, cmd.value, this.graphicService.ROAD_KOMA)
     );
   }
   private execRemoveRoad(cmd:CommandData){
-    console.log(cmd.type);
     this.drawableObjectList = [];
   }
   private execGenerateTreasure(cmd:CommandData){
