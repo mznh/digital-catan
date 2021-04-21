@@ -1,5 +1,8 @@
 #!/usr/bin/env ruby
 
+
+require_relative "./model/command"
+
 class TileApi < Sinatra::Base
   configure :production, :development do
     set :ws_url, Environments.instance.ws_url
@@ -32,7 +35,7 @@ class TileApi < Sinatra::Base
 	get '/put/road/:positon' do
     p "get request"
     tmp_data = {
-      'type'=>"put road koma",
+      'type'=> CommandType::PUT_ROAD,
       "target"=>'test target',
       "value" => params['positon'],
       'message' => "put koma from api"

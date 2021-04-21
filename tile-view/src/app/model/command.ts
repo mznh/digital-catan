@@ -3,9 +3,9 @@
 // 管制モジュールから通達される状態
 // ゲームルールとしてリーガル/イリーガルかとは別
 export const COMMAND_TYPE = {
-  PUT_ROAD: 'put road koma',
-  REMOVE_ROAD: 'remove road koma',
-  TEST_TREASURE: 'generate test treasure',
+  PUT_ROAD: 'PUT_ROAD',
+  REMOVE_ROAD: 'REMOVE_ROAD',
+  TEST_TREASURE: 'TEST_TREASURE',
 
 } as const;
 type COMMAND_TYPE = typeof COMMAND_TYPE[keyof typeof COMMAND_TYPE];

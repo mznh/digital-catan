@@ -5,7 +5,8 @@ import json
 
 ## command type
 class COMMAND_TYPE:
-    ROAD_KOMA = "put road koma"
+    PUT_ROAD = "PUT_ROAD"
+    REMOVE_ROAD = "REMOVE_ROAD"
 
 
 class CommandData:
