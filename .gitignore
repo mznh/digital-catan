@@ -4,4 +4,4 @@
 [._]s[a-w][a-z]
 
 # log file
-./log/*.log
+/log/*.log
