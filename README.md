@@ -3,6 +3,8 @@
 
 ## boot 
 
+各コンポーネントの開発環境を用意した後に
+
     $ ./start_service
 
 ## issue name 
