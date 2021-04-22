@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# 子供が残るので pend
+
+
+echo "all component boot"
+./tile-controller/exec &
+./tile-view/exec &
+# ./hw-observer/exec &
+wait
