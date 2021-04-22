@@ -1,10 +1,8 @@
 #!/bin/bash
 
-# 子供が残るので pend
+EXEC_DATE=`date '+%Y%m%d'`
 
-
-echo "all component boot"
-./tile-controller/exec &
-./tile-view/exec &
-# ./hw-observer/exec &
+./tile-controller/exec >> log/controller-$EXEC_DATE.log 2>&1 &
+./tile-view/exec >> log/view-$EXEC_DATE.log 2>&1 &
+# ./hw-observer/exec 2>&1 log/hardware-$EXEC_DATE.log &
 wait
