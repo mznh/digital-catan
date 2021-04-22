@@ -3,3 +3,5 @@
 [._]*.s[a-w][a-z]
 [._]s[a-w][a-z]
 
+# log file
+./log/*.log
