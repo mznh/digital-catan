@@ -6,6 +6,7 @@ init
 $ sudo apt -y install python3-pip
 $ sudo pip3 install virtualenv
 $ virtualenv .
+$ . bin/activate
 $ pip3 install -r requirements.txt
 ```
 
