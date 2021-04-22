@@ -24,7 +24,10 @@ $ . bin/activate
 $ ./src/main.py
 $ deactivate 
 ```
-
+or 
+```
+$ ./exec
+```
 
 ### 参考にしたサイト
 https://qiita.com/m-masaki72/items/7ba34e31d9f08662f1ee
