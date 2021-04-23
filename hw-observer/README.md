@@ -13,9 +13,11 @@ $ pip3 install -r requirements.txt
 update requirements.txt
 
 ```
+$ . bin/activate
 $ pip3 install hoge
 $ pip3 list
 $ pip3 freeze > requirements.txt
+$ deactivate
 ```
 
 execute 
