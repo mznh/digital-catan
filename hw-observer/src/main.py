@@ -15,6 +15,6 @@ hw_observer = HardwareObserver(ws_url)
 
 ## テストメッセージを送信
 ## 3番目に道コマを置く
-test_command_data = CommandData( COMMAND_TYPE.ROAD_KOMA, 'test target', 3, "test message from python code")
+test_command_data = CommandData( COMMAND_TYPE.PUT_ROAD, 'test target', 3, "test message from python code")
 
 hw_observer.send_command(test_command_data)
