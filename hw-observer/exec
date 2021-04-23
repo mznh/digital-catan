@@ -4,7 +4,7 @@
 . bin/activate
 
 # execute 
-./src/main.py
+./src/main.py $1
 
 # deactivate virtualenv
 deactivate

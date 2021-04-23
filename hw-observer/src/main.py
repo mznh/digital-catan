@@ -3,13 +3,17 @@
 
 from command import *
 from hw_observer import *
+import sys
 
 
 ## setting
 ws_url = "ws://localhost:8888"
 
 
-hw_observer = HardwareObserver(ws_url)
+if len(sys.argv) == 2 and sys.argv[1] == "test":
+    hw_observer = HardwareObserver(ws_url,True)
+else:
+    hw_observer = HardwareObserver(ws_url)
 #hw_observer.run()
 
 

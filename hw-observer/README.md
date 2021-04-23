@@ -19,17 +19,19 @@ $ pip3 list
 $ pip3 freeze > requirements.txt
 $ deactivate
 ```
+run 
 
-execute 
-```
-$ . bin/activate
-$ ./src/main.py
-$ deactivate 
-```
-or 
 ```
 $ ./exec
 ```
+
+
+引数に test をつけることでデータを送信せずに出力するモードになります。
+
+```
+$ ./exec test
+```
+
 
 ### 参考にしたサイト
 https://qiita.com/m-masaki72/items/7ba34e31d9f08662f1ee
