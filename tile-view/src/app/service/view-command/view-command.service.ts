@@ -43,6 +43,7 @@ export class ViewCommandService {
   //draw canvas
   public draw(){
     this.p5ref.background(0);
+    this.p5ref.circle(300,300,420);
     this.drawableObjectList.forEach((elm,idx) =>{
       elm.draw()
     });
