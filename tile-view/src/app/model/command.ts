@@ -6,7 +6,6 @@ export const COMMAND_TYPE = {
   PUT_ROAD: 'PUT_ROAD',
   REMOVE_ROAD: 'REMOVE_ROAD',
   TEST_TREASURE: 'TEST_TREASURE',
-
 } as const;
 type COMMAND_TYPE = typeof COMMAND_TYPE[keyof typeof COMMAND_TYPE];
 
