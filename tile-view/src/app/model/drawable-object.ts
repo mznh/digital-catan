@@ -1,6 +1,6 @@
 import * as p5 from 'p5';
 import { Point } from './point';
-import { Graphic, GRAPHIC_POSITION, toRadian } from './graphics';
+import { Graphic, AnimationStatus, ANIMATION_TYPE, toRadian, GRAPHIC_POSITION } from './graphics';
 
 export class DrawableObject {
   public p5ref:any
@@ -10,32 +10,15 @@ export class DrawableObject {
   public draw(){}
 }
 
-export class AnimationStatus{
-  maxFrame:number;
-  progress:number;
-  constructor(g:Graphic){
-    this.maxFrame = g.animationInfo.numOfFrames * g.animationInfo.framePerImage;
-    this.progress = 0;
-  }
-  public isFinished(){
-    //ここ = いらんかも
-    return this.progress >= this.maxFrame;
-  }
-  public terminate(){
-    this.maxFrame = 0;
-  }
-  public nextFrame(){
-    this.progress += 1;
-  }
-}
-
 export class DrawableAnimationObject extends DrawableObject {
   public animationStatus :AnimationStatus;
   public graphic:Graphic
-  constructor(p:p5,graphic:Graphic){
+  constructor(
+      p:p5,graphic:Graphic,
+      animationType:ANIMATION_TYPE = ANIMATION_TYPE.ONCE){
     super(p);
     this.graphic = graphic;
-    this.animationStatus = new AnimationStatus(graphic);
+    this.animationStatus = new AnimationStatus(graphic,animationType);
   }
   public draw(){}
 
@@ -92,10 +75,11 @@ export class RoadKoma extends DrawableObject {
 export class TestTreasure extends DrawableAnimationObject {
   public graphic:Graphic;
   public position:number
-  constructor(p:p5, pos:number, graphic:Graphic){
-    super(p,graphic);
+  // テスト用にアニメーションタイプを横付け
+  constructor(p:p5, animationType:any, graphic:Graphic){
+    super(p,graphic,animationType);
     this.graphic = graphic;
-    this.position = pos;
+    this.position = 0;
   }
   public draw(){
     const centerX = 240-90; 

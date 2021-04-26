@@ -9,6 +9,8 @@ import * as p5 from 'p5';
 import { GraphicService } from '../graphic/graphic.service'
 import { TestTreasure, RoadKoma, DrawableObject, DrawableAnimationObject } from '../../model/drawable-object' 
 import { CommandData, CommandInfo, COMMAND_TYPE} from '../../model/command' 
+// for test
+import { ANIMATION_TYPE, isAnimationType } from '../../model/graphics' 
 
 
 @Injectable({
@@ -101,8 +103,10 @@ export class ViewCommandService {
     this.drawableObjectList = [];
   }
   private execGenerateTreasure(cmd:CommandData){
-    this.drawableObjectList.push(
-      new TestTreasure(this.p5ref, cmd.value, this.graphicService.TEST_TREASURE)
-    );
+    if(isAnimationType(cmd.target)){
+      this.drawableObjectList.push(
+        new TestTreasure(this.p5ref, cmd.target, this.graphicService.TEST_TREASURE)
+      );
+    }
   }
 }

@@ -32,6 +32,10 @@ $ ./exec
 $ ./exec test
 ```
 
+## 通信用マイコンのコード
+独自プロトコルによる通信を担当するマイコンのコードは `observable_device/` に格納される
+
+
 
 ### 参考にしたサイト
 https://qiita.com/m-masaki72/items/7ba34e31d9f08662f1ee

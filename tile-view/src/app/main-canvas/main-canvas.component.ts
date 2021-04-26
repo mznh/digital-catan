@@ -55,10 +55,10 @@ export class MainCanvasComponent implements OnInit {
 
   //for stream test
 
-  public putTreasure(){
+  public putTreasure(animationType:string){
     const tmpCommandData ={
       type: COMMAND_TYPE.TEST_TREASURE,
-      target: "test",
+      target: animationType,
       value: 0,
       message: "this is test message"
     };
