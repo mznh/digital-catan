@@ -26,7 +26,7 @@ export class MainCanvasComponent implements OnInit {
     p.setup = () =>{
       // 画面全体に表示する場合
       //p.createCanvas(p.windowWidth, p.windowHeight);
-      p.createCanvas(600,600);
+      p.createCanvas(480,480);
     }
     p.draw = () => {
       this.viewCommandService.draw()

@@ -46,8 +46,8 @@ export class ViewCommandService {
 
     this.p5ref.push();
     this.p5ref.noFill();
-    this.p5ref.stroke(255);
-    this.p5ref.circle(300, 300, 420);
+    this.p5ref.stroke(255,0,0);
+    this.p5ref.circle(240, 240, 480);
     this.p5ref.pop();
 
     this.drawableObjectList.forEach((elm,idx) =>{

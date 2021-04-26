@@ -74,11 +74,11 @@ export const GRAPHIC_DATA ={
 //後々必ず精査すること
 export const GRAPHIC_POSITION ={
   ROAD_KOMA:[
-    new Point(270,  45, 5.0*M_PI/3.0),
-    new Point(493, 170, 0.0*M_PI/3.0),
-    new Point(493, 420, 1.0*M_PI/3.0),
-    new Point(270, 540, 2.0*M_PI/3.0),
-    new Point( 55, 415, 3.0*M_PI/3.0),
-    new Point( 55, 170, 4.0*M_PI/3.0),
+    new Point(200,  45, 5.0*M_PI/3.0),
+    new Point(390, 110, 0.0*M_PI/3.0),
+    new Point(420, 320, 1.0*M_PI/3.0),
+    new Point(280, 440, 2.0*M_PI/3.0),
+    new Point(90, 370, 3.0*M_PI/3.0),
+    new Point(55, 170, 4.0 * M_PI / 3.0),
   ]
 }
