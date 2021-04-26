@@ -17,4 +17,6 @@
       or
     [feature|fix]/branch-name
     
+branch-name は 簡潔な表現の英語でお願いします。
+
 ex) `featrue-23/add-hyper-view-power`, `fix/re-connection`
