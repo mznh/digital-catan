@@ -75,10 +75,11 @@ export class RoadKoma extends DrawableObject {
 export class TestTreasure extends DrawableAnimationObject {
   public graphic:Graphic;
   public position:number
-  constructor(p:p5, pos:number, graphic:Graphic){
-    super(p,graphic,ANIMATION_TYPE.STOP);
+  // テスト用にアニメーションタイプを横付け
+  constructor(p:p5, animationType:any, graphic:Graphic){
+    super(p,graphic,animationType);
     this.graphic = graphic;
-    this.position = pos;
+    this.position = 0;
   }
   public draw(){
     const centerX = 300-90; 

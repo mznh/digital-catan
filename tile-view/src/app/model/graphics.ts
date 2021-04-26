@@ -40,6 +40,11 @@ export const ANIMATION_TYPE = {
   LOOP: 'LOOP',
 } as const;
 export type ANIMATION_TYPE = typeof ANIMATION_TYPE[keyof typeof ANIMATION_TYPE];
+export function isAnimationType(str:string){
+  return str == ANIMATION_TYPE.ONCE || 
+         str == ANIMATION_TYPE.STOP || 
+         str == ANIMATION_TYPE.LOOP  
+}
 
 export class AnimationStatus{
   maxFrame:number;
