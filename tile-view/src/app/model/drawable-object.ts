@@ -82,8 +82,8 @@ export class TestTreasure extends DrawableAnimationObject {
     this.position = 0;
   }
   public draw(){
-    const centerX = 240-90; 
-    const centerY = 240-90;
+    const centerX = 300-90; 
+    const centerY = 300-90;
     const rotate  = toRadian(0);
     
     this.drawAnimation(new Point(centerX, centerY, rotate));
