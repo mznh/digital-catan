@@ -42,16 +42,18 @@ export class ViewCommandService {
     this.p5ref = p;
   }
   
+  public drawScreenEdge() {
+    this.p5ref.noFill();
+    this.p5ref.stroke(255, 0, 0);
+    this.p5ref.circle(240, 240, 480);
+  }
+
   //draw canvas
   public draw(){
     this.p5ref.background(0);
 
-    this.p5ref.push();
-    this.p5ref.noFill();
-    this.p5ref.stroke(255,0,0);
-    this.p5ref.circle(240, 240, 480);
-    this.p5ref.pop();
-
+    this.drawScreenEdge();
+    
     this.drawableObjectList.forEach((elm,idx) =>{
       elm.draw()
     });
