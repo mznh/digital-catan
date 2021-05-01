@@ -1,0 +1,9 @@
+
+.command-log-box{
+  width: 480px;
+  height: 300px;
+  margin: 0px;
+  border: 1px #ccc solid;
+  overflow-y: scroll;
+}
+

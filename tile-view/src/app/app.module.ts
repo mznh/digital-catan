@@ -5,11 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainCanvasComponent } from './main-canvas/main-canvas.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DebugComponent } from './debug/debug.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainCanvasComponent
+    MainCanvasComponent,
+    DebugComponent
   ],
   imports: [
     BrowserModule,

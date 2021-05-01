@@ -1,0 +1,18 @@
+<p>debug page</p>
+<div id="testButton">
+  <button mat-button (click)="putRoadKoma(0)">put 0</button>
+  <button mat-button (click)="putRoadKoma(1)">put 1</button>
+  <button mat-button (click)="putRoadKoma(2)">put 2</button>
+  <button mat-button (click)="putRoadKoma(3)">put 3</button>
+  <button mat-button (click)="putRoadKoma(4)">put 4</button>
+  <button mat-button (click)="putRoadKoma(5)">put 5</button>
+  <button mat-button (click)="flashCanvas()">remove</button>
+  <button mat-button (click)="putTreasure('ONCE')">アニメ(一度だけ)</button>
+  <button mat-button (click)="putTreasure('STOP')">アニメ(停止)</button>
+  <button mat-button (click)="putTreasure('LOOP')">アニメ(ループ)</button>
+</div>
+<div #commandLogBox class="command-log-box">
+  <div *ngFor="let cmd of commandLog">
+    {{cmd.type}}:{{cmd.target}}, {{cmd.value}}, {{cmd.message}}
+  </div>
+<div>
