@@ -5,9 +5,6 @@ import * as p5 from 'p5';
 import { ViewCommandService } from '../service/view-command/view-command.service'
 import { GraphicService } from '../service/graphic/graphic.service'
 
-// for test
-import { CommandData, COMMAND_TYPE} from '../model/command' 
-
 @Component({
   selector: 'app-main-canvas',
   templateUrl: './main-canvas.component.html',
@@ -51,37 +48,5 @@ export class MainCanvasComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  }
-
-  //for stream test
-
-  public putTreasure(animationType:string){
-    const tmpCommandData ={
-      type: COMMAND_TYPE.TEST_TREASURE,
-      target: animationType,
-      value: 0,
-      message: "this is test message"
-    };
-    this.viewCommandService.sendCommandData(tmpCommandData);
-  }
-
-  public putRoadKoma(position:number){
-    const tmpCommandData ={
-      type: COMMAND_TYPE.PUT_ROAD,
-      target: "test",
-      value: position,
-      message: "this is test message"
-    };
-    this.viewCommandService.sendCommandData(tmpCommandData);
-  }
-
-  public flashCanvas(){
-    const tmpCommandData ={
-      type: COMMAND_TYPE.REMOVE_ROAD,
-      target: "remove",
-      value: 100,
-      message: "this is remove test message"
-    };
-    this.viewCommandService.sendCommandData(tmpCommandData);
   }
 }
