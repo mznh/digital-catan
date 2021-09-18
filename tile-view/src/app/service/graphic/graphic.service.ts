@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import * as p5 from 'p5';
 
-import { GraphicBook, Graphic, GRAPHIC_DATA } from '../../model/graphics'
+import { Graphic } from '../../model/base-graphics'
+import { GraphicBook, GRAPHIC_DATA } from '../../model/graphics'
 
+//ロードした画像そのものを管理/提供するサービス
 @Injectable({
   providedIn: 'root'
 })
@@ -21,6 +23,7 @@ export class GraphicService extends GraphicBook{
   public loadGraphics(){
     console.log("graphc load ")
     this.ROAD_KOMA = this.loadGraphic( GRAPHIC_DATA.ROAD_KOMA );
+    this.SETTLEMENT_KOMA = this.loadGraphic( GRAPHIC_DATA.SETTLEMENT_KOMA);
     this.TEST_TREASURE = this.loadGraphic( GRAPHIC_DATA.TEST_TREASURE );
   }
   // 各graphicに画像を読み込ませる

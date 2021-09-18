@@ -66,6 +66,16 @@ export class DebugComponent implements OnInit {
     this.viewCommandService.sendCommandData(tmpCommandData);
   }
 
+  public putSettlementKoma(position:number){
+    const tmpCommandData ={
+      type: COMMAND_TYPE.PUT_SETTLEMENT,
+      target: "test",
+      value: position,
+      message: "this is test message"
+    };
+    this.viewCommandService.sendCommandData(tmpCommandData);
+  }
+
   public flashCanvas(){
     const tmpCommandData ={
       type: COMMAND_TYPE.REMOVE_ROAD,
