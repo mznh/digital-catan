@@ -25,6 +25,7 @@ export class GraphicService extends GraphicBook{
     this.ROAD_KOMA = this.loadGraphic( GRAPHIC_DATA.ROAD_KOMA );
     this.SETTLEMENT_KOMA = this.loadGraphic( GRAPHIC_DATA.SETTLEMENT_KOMA);
     this.TEST_TREASURE = this.loadGraphic( GRAPHIC_DATA.TEST_TREASURE );
+    this.TEST_BACKGROUND = this.loadGraphic( GRAPHIC_DATA.TEST_BACKGROUND );
   }
   // 各graphicに画像を読み込ませる
   public loadGraphic(graphic:Graphic){

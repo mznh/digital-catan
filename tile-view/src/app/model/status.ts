@@ -12,7 +12,6 @@ export interface TileStatus {
   thief: boolean,
 }
 
-
 export function initTileStatus():TileStatus{
   return {
     resource: RESOURCE_TYPE.NOTHING,
@@ -23,3 +22,4 @@ export function initTileStatus():TileStatus{
   }
 
 }
+

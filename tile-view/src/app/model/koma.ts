@@ -5,12 +5,12 @@ import { GRAPHIC_POSITION } from './graphics';
 import {DrawableObject, DrawableAnimationObject, drawRotateImage } from './drawable-object';
 
 
-export class RoadKoma extends DrawableObject {
+export class RoadKoma extends DrawableAnimationObject {
   public graphic:Graphic;
   public position:number
   //コンストラクタは変えない
-  constructor(p:p5, pos:number, graphic:Graphic){
-    super(p);
+  constructor(p:p5, pos:number,graphic:Graphic,animationType:ANIMATION_TYPE ){
+    super(p,graphic,animationType);
     this.graphic = graphic;
     this.position = pos;
   }
@@ -23,12 +23,14 @@ export class RoadKoma extends DrawableObject {
     const rotate  = GRAPHIC_POSITION.ROAD_KOMA[this.position].r;
     const point = new Point(centerX, centerY, rotate);
 
-    // 描画位置確認用
-    // 適宜消してください
-    this.p5ref.circle(centerX,centerY,10);
+    //描画処理
+    //静止画の場合はこれ
+    //drawRotateImage(this.p5ref,this.graphic.image,point);
+    //アニメーションの場合はこれ
+    this.drawAnimation(point);
 
-    //画像描画
-    drawRotateImage(this.p5ref,this.graphic.image,point);
+    //アニメーションならば最後にかならず呼び出す
+    this.animationStatus.nextFrame();
   }
 };
 
@@ -37,10 +39,10 @@ export class SettlementKoma extends DrawableAnimationObject {
   public graphic:Graphic;
   public position:number
   //コンストラクタは変えない
-  constructor(p:p5, animationType:any, graphic:Graphic){
+  constructor(p:p5, pos:number,graphic:Graphic,animationType:ANIMATION_TYPE ){
     super(p,graphic,animationType);
     this.graphic = graphic;
-    this.position = 0;
+    this.position = pos;
   }
   public draw(){
     const centerX = GRAPHIC_POSITION.ROAD_KOMA[this.position].x; 
@@ -50,13 +52,32 @@ export class SettlementKoma extends DrawableAnimationObject {
 
     this.p5ref.circle(centerX,centerY,10);
     // アニメーションの場合はこれを呼び出す
-    this.drawAnimation(new Point(centerX, centerY, rotate));
+    this.drawAnimation(point);
 
     //アニメーションならば最後にかならず呼び出す
     this.animationStatus.nextFrame();
   }
 };
 
+
+export class TestBackground extends DrawableAnimationObject {
+  public graphic:Graphic;
+  public position:number
+  //コンストラクタは変えない
+  constructor(p:p5, graphic:Graphic,animationType:ANIMATION_TYPE ){
+    super(p,graphic,animationType);
+    this.graphic = graphic;
+  }
+  public draw(){
+    const point = new Point(0,0);
+
+    // アニメーションの場合はこれを呼び出す
+    this.drawAnimation(point);
+
+    //アニメーションならば最後にかならず呼び出す
+    this.animationStatus.nextFrame();
+  }
+};
 
 
 

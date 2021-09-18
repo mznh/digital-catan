@@ -76,6 +76,15 @@ export class DebugComponent implements OnInit {
     this.viewCommandService.sendCommandData(tmpCommandData);
   }
 
+  public setResourceType(position:number){
+    const tmpCommandData ={
+      type: COMMAND_TYPE.SET_RESOURCE_TYPE,
+      target: "resource",
+      value: 0,
+      message: "this is test message"
+    };
+    this.viewCommandService.sendCommandData(tmpCommandData);
+  }
   public flashCanvas(){
     const tmpCommandData ={
       type: COMMAND_TYPE.REMOVE_ROAD,
