@@ -45,9 +45,9 @@ export class SettlementKoma extends DrawableAnimationObject {
     this.position = pos;
   }
   public draw(){
-    const centerX = GRAPHIC_POSITION.ROAD_KOMA[this.position].x; 
-    const centerY = GRAPHIC_POSITION.ROAD_KOMA[this.position].y;
-    const rotate  = GRAPHIC_POSITION.ROAD_KOMA[this.position].r;
+    const centerX = GRAPHIC_POSITION.SETTLEMENT_KOMA[this.position].x;
+    const centerY = GRAPHIC_POSITION.SETTLEMENT_KOMA[this.position].y;
+    const rotate = GRAPHIC_POSITION.SETTLEMENT_KOMA[this.position].r;
     const point = new Point(centerX, centerY, rotate);
 
     this.p5ref.circle(centerX,centerY,10);
