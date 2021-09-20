@@ -141,8 +141,6 @@ export class ViewCommandService {
     ];
     [2,3,4,5,6,7,8,9,10,11,12].map((tileNum:number)=>{
       const gData = this.graphicService.NUMBER_PLATE.get(tileNum);
-      console.log(tileNum)
-      console.log(gData)
       if(gData !== undefined){
         this.numberList.set (
           tileNum,new NumberPlate(this.p5ref,gData,ANIMATION_TYPE.LOOP)
