@@ -85,6 +85,17 @@ export class DebugComponent implements OnInit {
     };
     this.viewCommandService.sendCommandData(tmpCommandData);
   }
+
+  public setTileNumber(v:number){
+    const tmpCommandData ={
+      type: COMMAND_TYPE.SET_TILE_NUMBER,
+      target: "set number",
+      value: v,
+      message: "this is test message"
+    };
+    this.viewCommandService.sendCommandData(tmpCommandData);
+  }
+
   public flashCanvas(){
     const tmpCommandData ={
       type: COMMAND_TYPE.REMOVE_ROAD,

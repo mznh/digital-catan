@@ -19,6 +19,7 @@ export class MainCanvasComponent implements OnInit {
     p.preload = ()=>{
       // load picture
       this.graphicService.loadGraphics();
+      this.viewCommandService.generateDefaultObject();
     }
     p.setup = () =>{
       // 画面全体に表示する場合

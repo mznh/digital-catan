@@ -59,6 +59,24 @@ export class SettlementKoma extends DrawableAnimationObject {
   }
 };
 
+export class NumberPlate extends DrawableAnimationObject {
+  public graphic:Graphic;
+  public position:number
+  //コンストラクタは変えない
+  constructor(p:p5, graphic:Graphic,animationType:ANIMATION_TYPE ){
+    super(p,graphic,animationType);
+    this.graphic = graphic;
+  }
+  public draw(){
+    const point = new Point(0,0);
+
+    // アニメーションの場合はこれを呼び出す
+    this.drawAnimation(point);
+
+    //アニメーションならば最後にかならず呼び出す
+    this.animationStatus.nextFrame();
+  }
+};
 
 export class TestBackground extends DrawableAnimationObject {
   public graphic:Graphic;

@@ -13,6 +13,7 @@ import { DrawableObject, DrawableAnimationObject } from '../../model/drawable-ob
 import {
   RoadKoma,
   SettlementKoma,
+  NumberPlate,
   TestTreasure,
   TestBackground,
 } from '../../model/koma';
@@ -34,6 +35,7 @@ export class ViewCommandService {
   private drawableObjectList: DrawableObject[] = [];
   //プリロード
   private backgroundList: DrawableObject[] =[];
+  private numberList: Map<number, DrawableObject> = new Map() ;
   //タイルの状態
   public tileStatus: TileStatus;
 
@@ -55,7 +57,9 @@ export class ViewCommandService {
       new CommandInfo( COMMAND_TYPE.REMOVE_ROAD, this.execRemoveRoad ), 
       new CommandInfo( COMMAND_TYPE.PUT_SETTLEMENT, this.execPutSettlement ),
       new CommandInfo( COMMAND_TYPE.SET_RESOURCE_TYPE, this.execSetResourceType ),
+      new CommandInfo( COMMAND_TYPE.SET_TILE_NUMBER, this.execSetTileNumber ),
       new CommandInfo( COMMAND_TYPE.TEST_TREASURE, this.execGenerateTreasure ) 
+
     ];
   }  
   //draw canvas
@@ -65,6 +69,8 @@ export class ViewCommandService {
     
     //背景を描画
     this.drawBackground();
+    //数字を描画
+    this.drawNumber();
     //各種オブジェクトの描画
     this.drawableObjectList.forEach((elm,idx) =>{
       elm.draw()
@@ -120,8 +126,30 @@ export class ViewCommandService {
   }
 
   private drawNumber(){
+    const tileNum = this.tileStatus.assignedNumber;
+    const numPlateObject = this.numberList.get(tileNum);
+    if(numPlateObject){
+      numPlateObject.draw();
+    }
   }
 
+
+  //盤面に表示すべきdrawableObjectをロード
+  public generateDefaultObject(){
+    this.backgroundList = [
+      new TestBackground(this.p5ref,this.graphicService.TEST_BACKGROUND,ANIMATION_TYPE.LOOP)
+    ];
+    [2,3,4,5,6,7,8,9,10,11,12].map((tileNum:number)=>{
+      const gData = this.graphicService.NUMBER_PLATE.get(tileNum);
+      console.log(tileNum)
+      console.log(gData)
+      if(gData !== undefined){
+        this.numberList.set (
+          tileNum,new NumberPlate(this.p5ref,gData,ANIMATION_TYPE.LOOP)
+        ) 
+      }
+    });
+  }
 
 
   // function for command 
@@ -146,6 +174,10 @@ export class ViewCommandService {
     this.backgroundList = [
       new TestBackground(this.p5ref,this.graphicService.TEST_BACKGROUND,ANIMATION_TYPE.LOOP)
     ];
+  }
+
+  private execSetTileNumber(cmd:CommandData){
+    this.tileStatus.assignedNumber = cmd.value;
   }
 
   private execGenerateTreasure(cmd:CommandData){
