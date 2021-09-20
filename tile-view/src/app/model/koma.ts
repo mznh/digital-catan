@@ -68,7 +68,7 @@ export class NumberPlate extends DrawableAnimationObject {
     this.graphic = graphic;
   }
   public draw(){
-    const point = new Point(0,0);
+    const point = new Point(50,100);
 
     // アニメーションの場合はこれを呼び出す
     this.drawAnimation(point);
