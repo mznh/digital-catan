@@ -65,7 +65,7 @@ class HardwareObserver:
         self.ser.bytesize  = serial.EIGHTBITS
         self.ser.timeout   = 5
 
-    def set_tileid(self):
+    def set_tileID(self):
         ser = self.ser
         tile_id = self.tileID
         while 1:
