@@ -31,7 +31,8 @@ class HardwareObserver:
         self.init_tile()
         self.gen_tileID()
         self.init_serial()
-        self.set_tileid()
+        self.
+        ()
         while True:
             self.get_data(self.ser)
 
@@ -79,6 +80,10 @@ class HardwareObserver:
         for send_byte in tile_id:
             ser.write(send_byte)
         ser.write("\r\n")
+        while True:
+            rx = ser.readline()
+            if "OK" in rx:
+                break
 
     def get_data(self,ser):
         rx = ser.readline()
@@ -86,45 +91,65 @@ class HardwareObserver:
         if(rx[0] =='T'):
             if self.tile_param[m]["tile"] != rx[3:-1]:  #隣接タイル情報に変更があるか
                 self.tile_param[m]["tile"] = rx[3:-1] #隣接タイル無しの時 tile_id = FFFF
-                cmd = CommandData(type="SET_NEIGHBIRHOOD_TILE",targer = self.tile_param[m]["tile"],value=m)
-                self.send_command(cmd)
-                print(cmd)
+                
+                print("type:"+"SET_NEIGHBIRHOOD_TILE")
+                print("target:"+self.tile_param[m]["tile"])
+                print("value",m)
+                #cmd = CommandData(type="SET_NEIGHBIRHOOD_TILE",targer = self.tile_param[m]["tile"],value=m)
+                #self.send_command(cmd)
 
         elif(rx[0] =='C'):                              #都市判定　簡易実装のため家のみ、町は考慮しない
             self.detect_city = self.detect_whose_city(int(rx[3:-1],16))     #ADC値から色と形を判定
             if self.tile_param[m]["city"] != self.detect_city:              #前状態と一致しているか
-                self.tile_param[m]["city"] = self.detect_city               #状態更新
-                if self.tile_param[m]["city"][1] == "settlement":       #コマが置かれた場合
-                    cmd = CommandData(type="PUT_"+self.tile_param[m]["city"][1],target=self.tile_param[m]["city"][0],value=m)
+                if self.detect_city[1] == "settlement":       #コマが置かれた場合
+                    print("type:"+"PUT_"+self.detect_city[1])
+                    print("target:"+self.detect_city[0])
+                    print("value",m)
+
+                    #cmd = CommandData(type="PUT_"+self.tile_param[m]["city"][1],target=self.tile_param[m]["city"][0],value=m)
                 else:                                                   #置かれたコマが「無し」の場合（コマが除去された場合）
-                    cmd = CommandData(type="REMOVE_"+self.tile_param[m]["city"][1],target=self.tile_param[m]["city"][0],value=m)
-                self.send_command(cmd)
-                print(cmd)
+                    print("type:"+"REMOVE_"+self.tile_param[m]["city"][1])
+                    print("target:"+self.tile_param[m]["city"][0])
+                    print("value",m)
+
+                    #cmd = CommandData(type="REMOVE_"+self.tile_param[m]["city"][1],target=self.tile_param[m]["city"][0],value=m)
+                #self.send_command(cmd)
+                self.tile_param[m]["city"] = self.detect_city               #状態更新
 
         elif(rx[0] =='R'):
             self.detect_road = self.detect_whose_road(int(rx[3:-1],16))     #ADC値から色を判定
             if self.tile_param[m]["road"] != self.detect_road:              #前状態と一致しているか
-                self.tile_param[m]["road"] = self.detect_road               #状態更新  
-                if self.tile_param[m]["road"] != "NONE":                #コマが置かれた場合  
-                    cmd = CommandData(type="PUT_ROAD",target=self.tile_param[m]["road"],value = m)                       
+                if self.detect_road != "NONE":                #コマが置かれた場合  
+                    print("type:"+"PUT_ROAD")
+                    print("target:"+self.detect_road)
+                    print("value",m)
+
+                    #cmd = CommandData(type="PUT_ROAD",target=self.tile_param[m]["road"],value = m)                       
                 else:                                           
-                    cmd = CommandData(type="REMOVE_ROAD",target=self.tile_param[m]["road"],value = m)
-                self.send_command(cmd)
-                print(cmd)
+                    print("type:"+"REMOVE_ROAD")
+                    print("target:"+self.tile_param[m]["road"])
+                    print("value",m)
+
+                    #cmd = CommandData(type="REMOVE_ROAD",target=self.tile_param[m]["road"],value = m)
+                #self.send_command(cmd)
+                self.tile_param[m]["road"] = self.detect_road               #状態更新  
 
         elif(rx[0] =='K'):
             if(int(rx[3:-1],16) <128):                                   #盗賊コマの有無を判定
                 if self.tile_param[6] == "NONE":                    
                     self.tile_param[6] = "ON"
-                    cmd = CommandData(type="PUT_THIEF")
+                    #cmd = CommandData(type="PUT_THIEF")
+                    print("type:"+"PUT_THIEF")
+
                 else: 
                     pass                     
             else:
                 if self.tile_param[6] == "ON":
                     self.tile_param[6] = "NONE"
-                    cmd = CommandData(type="REMOVE_THIEF")
-            self.send_command(cmd)
-            print(cmd)
+                    #cmd = CommandData(type="REMOVE_THIEF")
+                    print("type:"+"REMOVE_THIEF")
+
+            #self.send_command(cmd)
 
     def detect_whose_city(self, city_ad):       #マイコンから受け取ったAD値から誰の都市/開拓地を判定
         i = 0
