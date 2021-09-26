@@ -31,8 +31,7 @@ class HardwareObserver:
         self.init_tile()
         self.gen_tileID()
         self.init_serial()
-        self.
-        ()
+        self.set_tileID()
         while True:
             self.get_data(self.ser)
 
