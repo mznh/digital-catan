@@ -81,6 +81,7 @@ class HardwareObserver:
         ser.write("\r\n")
         while True:
             rx = ser.readline()
+            print(rx[:-1])
             if "OK" in rx:
                 break
 
@@ -100,7 +101,7 @@ class HardwareObserver:
         elif(rx[0] =='C'):                              #都市判定　簡易実装のため家のみ、町は考慮しない
             self.detect_city = self.detect_whose_city(int(rx[3:-1],16))     #ADC値から色と形を判定
             if self.tile_param[m]["city"] != self.detect_city:              #前状態と一致しているか
-                if self.detect_city[1] == "settlement":       #コマが置かれた場合
+                if self.detect_city != "NONE":       #コマが置かれた場合
                     print("type:"+"PUT_"+self.detect_city[1])
                     print("target:"+self.detect_city[0])
                     print("value",m)
